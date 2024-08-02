@@ -89,7 +89,7 @@
               </div>
               <div class="text-center">
                 <button type="submit" class="btn btn-primary">Update</button>
-                <button type="button" class="btn btn-secondary">Cancel</button>
+                <button type="button" class="btn btn-secondary" onClick="back()">Cancel</button>
               </div>
             </form><!-- End Custom Styled Validation -->
           </div>
@@ -217,6 +217,10 @@
   </script>
 
   <script>
+
+    function back(){
+      window.location.href = "/studentManagement";
+    }
 
     function signOut()
     {
