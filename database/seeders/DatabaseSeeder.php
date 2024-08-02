@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => 'John Doe',
-            'email' => 'john.doe@example.com',
+            'email' => 'john.doe@gmail.com',
             'password' => Hash::make('password123'), // Ensure password is hashed
             'address' => '123 Main Street',
         ]);
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         // For example:
         User::create([
             'name' => 'Jane Smith',
-            'email' => 'jane.smith@example.com',
+            'email' => 'jane.smith@gmail.com',
             'password' => Hash::make('password456'),
             'address' => '456 Elm Street',
         ]);
