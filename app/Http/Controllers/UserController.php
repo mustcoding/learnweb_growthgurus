@@ -63,8 +63,9 @@ class UserController extends Controller
         ], 201);
     }
 
-    public function deleteUser($id)
+    public function deleteUser(Request $request)
     {
+        $id = $request->input('studentId');
         // Find user by ID
         $user = User::find($id);
 

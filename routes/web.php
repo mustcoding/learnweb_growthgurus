@@ -35,7 +35,7 @@ Route::prefix('user')->middleware(['auth:sanctum'])->group(function() {
 
     Route::post('/findUser', [UserController::class, 'findUser']);//done
     Route::post('/registerUser', [UserController::class, 'register']);//done
-    Route::delete('/{id}', [UserController::class, 'deleteUser']);
+    Route::delete('/deleteUser', [UserController::class, 'deleteUser']);
     Route::put('/updateUser', [UserController::class, 'updateUser']);//done
     Route::get('/totalStudent', [UserController::class, 'totalStudent']);//done
     Route::get('/getAllStudents', [UserController::class, 'getAllStudents']);//done

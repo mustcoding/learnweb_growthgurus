@@ -61,6 +61,11 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
+    <div id="alert3" class="alert alert-success alert-dismissible fade show" role="alert3" style="display: none;">
+      Student Successfully Deleted..
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Search Student</h5>
@@ -134,19 +139,6 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-
 
   <script>
 
@@ -206,8 +198,8 @@
                       <td>${item.address}</td>
                       <td>
                         <div class="button-column">
-                          <button type="button" class="btn btn-primary" onclick="editClassroom(${item.id})">Edit</button>
-                          <button type="button" class="btn btn-danger" onclick="deleteClassroom(${item.id})">Delete </button>
+                          <button type="button" class="btn btn-primary" onclick="editStudent(${item.id})">Edit</button>
+                          <button type="button" class="btn btn-danger" onclick="deleteStudent(${item.id})">Delete </button>
                         </div>
                       </td>
                     </tr>`;
@@ -219,73 +211,80 @@
 
 
     function searchServices() {
-    // Get the search term
-    var searchTerm = document.getElementById('services').value.toLowerCase();
-    console.log('KEYWORD:',searchTerm);
+      // Get the search term
+      var searchTerm = document.getElementById('services').value.toLowerCase();
+      console.log('KEYWORD:',searchTerm);
 
-    // Get all rows in the table
-    var rows = document.querySelectorAll('table tbody tr');
+      // Get all rows in the table
+      var rows = document.querySelectorAll('table tbody tr');
 
-    var studentFound = false;
+      var studentFound = false;
 
-    // Loop through each row and hide/show based on the search term
-    rows.forEach(function (row) {
-        // Update the selector to target the correct cell (company name)
-        var student = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+      // Loop through each row and hide/show based on the search term
+      rows.forEach(function (row) {
+          // Update the selector to target the correct cell (company name)
+          var student = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
 
-        // Convert both the company name and the search term to lowercase for comparison
-        if (student.includes(searchTerm)) {
-            row.style.display = 'table-row';
-            studentFound = true;
-        } else {
-            row.style.display = 'none';
-        }
-    });
+          // Convert both the company name and the search term to lowercase for comparison
+          if (student.includes(searchTerm)) {
+              row.style.display = 'table-row';
+              studentFound = true;
+          } else {
+              row.style.display = 'none';
+          }
+      });
 
-    if(studentFound){
-      document.querySelector('.alert.alert-success.alert-dismissible.fade.show[role="alert1"]').style.display = 'block';
-      document.querySelector('.alert.alert-danger.alert-dismissible.fade.show[role="alert2"]').style.display = 'none';
+      if(studentFound){
+        document.querySelector('.alert.alert-success.alert-dismissible.fade.show[role="alert1"]').style.display = 'block';
+        document.querySelector('.alert.alert-danger.alert-dismissible.fade.show[role="alert2"]').style.display = 'none';
+      }
+      else{
+        document.querySelector('.alert.alert-success.alert-dismissible.fade.show[role="alert1"]').style.display = 'none';
+        document.querySelector('.alert.alert-danger.alert-dismissible.fade.show[role="alert2"]').style.display = 'block';
+      }
     }
-    else{
-      document.querySelector('.alert.alert-success.alert-dismissible.fade.show[role="alert1"]').style.display = 'none';
-      document.querySelector('.alert.alert-danger.alert-dismissible.fade.show[role="alert2"]').style.display = 'block';
+
+
+    function editStudent(student_id){
+      // Get the tourismServiceId from the URL
+      var student = `editStudent?id=${student_id}`;
+      window.open(`${student}`,'_self');
     }
-  }
 
+    function deleteStudent(student_id)
+    {
+      // Retrieve the JSON string from sessionStorage DONE
+      var token = JSON.parse(sessionStorage.getItem('token'));
+      console.log('User Token: ', token);
 
-  function editClassroom(student_id){
-    // Get the tourismServiceId from the URL
-    var student = `editStudent?id=${student_id}`;
-    window.open(`${student}`,'_self');
-  }
+      //Create an object to hold the data you want to send
+      const data = {
+        studentId : student_id,
+      };
 
-  function deleteClassroom(classroom_id)
-  {
-    var is_Delete=1;
-    //Create an object to hold the data you want to send
-    const data = {
-      id : classroom_id,
-      is_Delete:is_Delete,
-    };
-
-    fetch('/classroom/delete/'+classroom_id, {
-            method: 'PUT', // Use the POST method
-            headers: {
-            'Content-Type': 'application/json' // Set the content type to JSON
-            },
-            body: JSON.stringify(data) // Convert the data object to a JSON string
-    })
+      fetch('/user/deleteUser', {
+        method: 'DELETE', // Use the POST method
+        headers: {
+          'Content-Type': 'application/json', // Set the content type to JSON
+          'Authorization': `Bearer ${token}`
+      },
+        body: JSON.stringify(data) // Convert the data object to a JSON string
+      })
       .then(response => response.json())
       .then(data => {
-            // Handle the response from the server
-            console.log("Student Successfully deleted ", data);
-            window.location.href = "/classroomManagement";
-            
-        })
+        // Handle the response from the server
+        console.log("Student Successfully deleted ", data);
+        document.getElementById('alert3').style.display = 'block';
+        setTimeout(() => {
+          window.location = "/studentManagement";
+        }, 2000);
+              
+              
+      })
       .catch(error => {
-            console.error('Error fetching data:', error);
+        console.error('Error fetching data:', error);
       });
-        
+          
     }
     
 
@@ -293,30 +292,30 @@
 
   <script>
 
-function signOut()
-{
-  const data={};
+    function signOut()
+    {
+      const data={};
 
-    fetch('/user/logout', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Response:', data);
-      
-      // Redirect to the login page
-      window.location.replace('/login');
-        
-    })
-    .catch(error => {
-        console.error('Error during fetch:', error);
-    });
+        fetch('/user/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Response:', data);
+          
+          // Redirect to the login page
+          window.location.replace('/login');
+            
+        })
+        .catch(error => {
+            console.error('Error during fetch:', error);
+        });
 
-}
+    }
   </script>
 
 </body>
