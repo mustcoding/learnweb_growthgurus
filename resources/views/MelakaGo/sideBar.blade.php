@@ -41,7 +41,7 @@
     </style>
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="indexSA.html" class="logo d-flex align-items-center">
+      <a href="/dashboard" class="logo d-flex align-items-center">
         <img src="assets/img/MelakaGo.png" alt="">
         <span class="d-none d-lg-block">MelakaGo</span>
       </a>

@@ -251,40 +251,42 @@
       window.open(`${student}`,'_self');
     }
 
-    function deleteStudent(student_id)
-    {
-      // Retrieve the JSON string from sessionStorage DONE
-      var token = JSON.parse(sessionStorage.getItem('token'));
-      console.log('User Token: ', token);
+    function deleteStudent(student_id) {
+      // Confirm with the user before proceeding
+      if (confirm('Are you sure you want to delete this student?')) {
+        // Retrieve the JSON string from sessionStorage
+        var token = JSON.parse(sessionStorage.getItem('token'));
+        console.log('User Token: ', token);
 
-      //Create an object to hold the data you want to send
-      const data = {
-        studentId : student_id,
-      };
+        // Create an object to hold the data you want to send
+        const data = {
+          studentId: student_id,
+        };
 
-      fetch('/user/deleteUser', {
-        method: 'DELETE', // Use the POST method
-        headers: {
-          'Content-Type': 'application/json', // Set the content type to JSON
-          'Authorization': `Bearer ${token}`
-      },
-        body: JSON.stringify(data) // Convert the data object to a JSON string
-      })
-      .then(response => response.json())
-      .then(data => {
-        // Handle the response from the server
-        console.log("Student Successfully deleted ", data);
-        document.getElementById('alert3').style.display = 'block';
-        setTimeout(() => {
-          window.location = "/studentManagement";
-        }, 2000);
-              
-              
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-          
+        fetch('/user/deleteUser', {
+          method: 'DELETE', // Use the DELETE method
+          headers: {
+            'Content-Type': 'application/json', // Set the content type to JSON
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify(data), // Convert the data object to a JSON string
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Handle the response from the server
+          console.log("Student successfully deleted", data);
+          document.getElementById('alert3').style.display = 'block';
+          setTimeout(() => {
+            window.location = "/studentManagement";
+          }, 2000);
+        })
+        .catch(error => {
+          console.error('Error deleting student:', error);
+        });
+      } else {
+        // User canceled the deletion
+        console.log('Student deletion canceled');
+      }
     }
     
 
