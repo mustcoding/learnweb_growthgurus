@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+  <!-- title of page -->
   <title>@yield('title', 'Melaka Go Web Application')</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -46,6 +47,7 @@
   @include('MelakaGo.sideBar')
 
   <main id="main" class="main">
+    <!-- main content of page-->
     @yield('content')
   </main><!-- End #main -->
 
