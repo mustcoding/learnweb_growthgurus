@@ -55,7 +55,7 @@
                 }
               </style>
 
-              <div class="alert alert-danger alert-dismissible fade show" role="alert2" style="display: none;">
+              <div id="unsuccessfullLogin" class="alert alert-danger alert-dismissible fade show" role="alert2" style="display: none;">
                 Houston....Email or Password Wrong !!
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
@@ -161,12 +161,14 @@
         console.log("email : ", email);
         console.log("password : ", password);
 
+        //prepared data for POST request
         const data = 
         {
           email: email,
           password: password
         };
 
+        //send POST request
         fetch('/login',
         {
           method: 'POST', // Use the POST method
@@ -176,9 +178,13 @@
           },
             body: JSON.stringify(data) // Convert the data object to a JSON string
         })
+        //When the server responds, the response is converted to a JSON object and passed to the next .then()
         .then(response => response.json())
         .then(data => 
         {
+
+          //porcess successfull login
+          // save user data and token into session storage
 
           var studentProfile = {
             id: data.user.id,
@@ -201,8 +207,17 @@
           }, 1000);
 
         })
+        //handle login failure
         .catch(error => {
+
           console.error('Error fetching data:', error);
+
+          document.getElementById('unsuccessfullLogin').style.display ='block'
+          
+          setTimeout(() => {
+            window.location = "/signIn";
+          }, 2000);
+
         });
       }
 

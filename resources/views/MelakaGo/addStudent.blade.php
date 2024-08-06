@@ -1,27 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Forms / Layouts - NiceAdmin Bootstrap Template</title>
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Nunito|Poppins" rel="stylesheet">
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-</head>
+@extends('MelakaGo.layout')
 
-<body>
-  
-  @include('MelakaGo.sideBar')
-
-  <main id="main" class="main">
-    <div class="pagetitle">
+@section('content')
+  <section>
+  <div class="pagetitle">
       <h1>Student Registration</h1>
     </div><!-- End Page Title -->
     <!-- Custom Styled Validation -->
@@ -69,6 +53,7 @@
                   </div>
                 </div>
               </div>
+             
               <div class="col-12">
                 <label for="validationCustom02" class="form-label">Address</label>
                 <input type="text" class="form-control" id="address" required>
@@ -88,17 +73,8 @@
         </div>
       </div>
     </section>
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>MelakaGo</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-     
-    </div>
-  </footer><!-- End Footer -->
+  </section>
+@endsection
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
