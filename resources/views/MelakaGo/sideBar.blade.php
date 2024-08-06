@@ -139,24 +139,6 @@
     });
   </script>
 
-<script>
-
-function signOut()
-{
-
-  history.pushState(null, null, location.href);
-  window.onpopstate = function () {
-    history.go(1);
-  };
-
-      // Clear the session storage
-  sessionStorage.clear();
-
-  // Redirect to the login page
-  window.location.replace('/signIn');
-}
-
-</script>
 </body>
 
 </html>
