@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
+//routes to screen
+
 Route::get('/signIn', function () {
     return view('MelakaGo.login');
 });
@@ -28,6 +30,8 @@ Route::get('/editStudent', function (Illuminate\Http\Request $request) {
     return view('MelakaGo.editStudent', ['id' => $id]);
 })->name('/editStudent');
 
+
+// routes to api
 
 Route::post('login',[UserController::class,'login']);//done
 
